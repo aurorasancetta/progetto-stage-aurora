@@ -1,4 +1,7 @@
-
+# Domain model
+![domain_model](https://github.com/user-attachments/assets/399f0e5b-f544-492d-998c-66c2626747cb)
+---
+```
 @startuml
 
 object user {
@@ -60,3 +63,4 @@ gratitude -- user : can give and receive
 note bottom of feedback: inviato solo da user_type: FAS e HR
 
 @enduml
+```
