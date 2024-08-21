@@ -11,7 +11,7 @@ In risposta agli [use cases](use_cases.md)
 
 - GET user/{id}/sentiment/{sentiment_date}  
 *Per ogni membro del team/dell'azienda in base all'user_type*  
-[SENTIMENT_USER_02], [TEAM_EMPLOYEE_01], [TEAM_HR_03]
+[SENTIMENT_USER_02], [TEAM_EMPLOYEE_01], [TEAM_HR_01]
 
 - PUT/DELETE user/{id}/sentiment/{sentiment_date}  
 [SENTIMENT_USER_03]
@@ -57,8 +57,7 @@ In risposta agli [use cases](use_cases.md)
         user_sending  
         user_receiving
     }   
-[TEAM_FAS_01], [TEAM_HR_01]
+[TEAM_FAS-HR_01]
 
 - GET feedback/{user_sending}  
-[TEAM_FAS_02], [TEAM_HR_02]
-
+[TEAM_FAS-HR_02]
