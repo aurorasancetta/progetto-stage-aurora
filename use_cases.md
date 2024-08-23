@@ -22,11 +22,8 @@ in modo che esso possa riflettere accuratamente la mia soddisfazione lavorativa,
 per monitorare e riflettere meglio il mio stato emotivo nel contesto lavorativo
 - [SENTIMENT_USER_05] vedere il log del mio umore (personale) giornaliero  
 per monitorare la mio umore personale nel tempo
-- [SENTIMENT_USER_06] modificare il mio umore (personale) giornaliero  
-in modo che esso possa riflettere accuratamente il mio umore personale, permettendo un monitoraggio più preciso
-- [SENTIMENT_USER_07] aggiungere un ulteriore umore (personale) giornaliero  
-in modo da poter catturare meglio le sfumature del mio stato d'animo durante la giornata
-- [SENTIMENT_USER_08] ricevere feedback sul mio sentiment (lavorativo) giornaliero  
+
+- [SENTIMENT_USER_06] ricevere feedback sul mio sentiment (lavorativo) giornaliero  
 in modo da sapere che ciò che ho registrato è stato visto da un mio FAS o dalle risorse umane
 
 ### Sezione bacheca
