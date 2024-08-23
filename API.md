@@ -13,7 +13,7 @@ In risposta agli [use cases](use_cases.md)
 *Per ogni membro del team/dell'azienda in base all'user_type*  
 [SENTIMENT_USER_02], [TEAM_EMPLOYEE_01], [TEAM_HR_01]
 
-- PUT/DELETE user/{id}/sentiment/{sentiment_date}  
+- PUT user/{id}/sentiment/{sentiment_date}  
 [SENTIMENT_USER_03]
 
 - POST user/{id}/mood  
@@ -21,17 +21,14 @@ In risposta agli [use cases](use_cases.md)
         mood_type  
         mood_date
     }  
-[SENTIMENT_USER_04], [SENTIMENT_USER_07]
+[SENTIMENT_USER_04]
 
 - GET user/{id}/mood/{mood_id}  
 *Per ogni membro del team*  
 [SENTIMENT_USER_05], [TEAM_EMPLOYEE_02]
 
-- PUT/DELETE user/{id}/mood/{mood_id}  
-[SENTIMENT_USER_06]
-
 - GET feedback/{user_receiving}  
-[SENTIMENT_USER_08]
+[SENTIMENT_USER_06]
 
 - POST gratitude  
     {
@@ -61,3 +58,4 @@ In risposta agli [use cases](use_cases.md)
 
 - GET feedback/{user_sending}  
 [TEAM_FAS-HR_02]
+
