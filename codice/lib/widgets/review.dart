@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:happy_at_work/models/sentiment.dart';
-import 'package:happy_at_work/widgets/sentiment_reason.dart';
 
 class Review extends StatefulWidget {
   const Review(this.newSentiment, {super.key});
