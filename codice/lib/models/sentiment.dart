@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+final formatter = DateFormat.yMd().add_jm();
 
 enum Type { entusiasta, soddisfatto, insoddisfatto, frustrato }
 
@@ -48,4 +51,8 @@ class Sentiment {
   final Reason? reason;
   final String? comment;
   final DateTime? date;
+
+  String get formattedDate {
+    return formatter.format(date!);
+  }
 }

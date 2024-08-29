@@ -3,40 +3,56 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:happy_at_work/models/sentiment.dart';
 
 class SentimentReason extends StatefulWidget {
-  const SentimentReason(this.pressed, {super.key});
+  const SentimentReason(this.pressedC, this.setPressedI, this.setSentiment,
+      {super.key});
 
-  final int pressed;
+  final int pressedC;
+  final void Function(bool) setPressedI;
+  final void Function(Sentiment) setSentiment;
 
   @override
   State<SentimentReason> createState() => _SentimentReasonState();
 }
 
 class _SentimentReasonState extends State<SentimentReason> {
-  int indexC = 999;
-  int indexR = 999;
-  String sentC = ' ';
-  String why = ' ';
+  var _indexC = 999;
+  var _indexR = 999;
+  var _isPressedI = false;
+  var _sentC = ' ';
+  var _why = ' ';
+  var _enteredComment = '';
+  final _date = DateTime.now();
+
+  Sentiment _saveItem() {
+    Sentiment newSent = Sentiment(
+      type: Type.values[_indexC - 1],
+      reason: Reason.values[_indexR - 1],
+      comment: _enteredComment,
+      date: _date,
+    );
+    return newSent;
+  }
 
   @override
   void initState() {
-    indexC = widget.pressed;
+    _indexC = widget.pressedC;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (indexC == 1) {
-      sentC = typeName[Type.entusiasta]!;
-      why = 'Cosa ha influito positivamente?';
-    } else if (indexC == 2) {
-      sentC = typeName[Type.soddisfatto]!;
-      why = 'Cosa ha influito positivamente?';
-    } else if (indexC == 3) {
-      sentC = typeName[Type.insoddisfatto]!;
-      why = 'Cosa ha influito negativamente?';
-    } else if (indexC == 4) {
-      sentC = typeName[Type.frustrato]!;
-      why = 'Cosa ha influito negativmente?';
+    if (_indexC == 1) {
+      _sentC = typeName[Type.entusiasta]!;
+      _why = 'Cosa ha influito positivamente?';
+    } else if (_indexC == 2) {
+      _sentC = typeName[Type.soddisfatto]!;
+      _why = 'Cosa ha influito positivamente?';
+    } else if (_indexC == 3) {
+      _sentC = typeName[Type.insoddisfatto]!;
+      _why = 'Cosa ha influito negativamente?';
+    } else if (_indexC == 4) {
+      _sentC = typeName[Type.frustrato]!;
+      _why = 'Cosa ha influito negativmente?';
     }
 
     return Container(
@@ -58,10 +74,10 @@ class _SentimentReasonState extends State<SentimentReason> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      indexC = (value.index + 1);
+                      _indexC = (value.index + 1);
                     });
                   },
-                  icon: indexC == value.index + 1
+                  icon: _indexC == value.index + 1
                       ? Container(
                           height: 70,
                           width: 70,
@@ -91,7 +107,7 @@ class _SentimentReasonState extends State<SentimentReason> {
                 border: Border.all(
                     color: Theme.of(context).colorScheme.secondaryContainer),
                 color: Theme.of(context).colorScheme.onPrimary),
-            child: Text(sentC),
+            child: Text(_sentC),
           ),
           const SizedBox(height: 20),
           // motivazioni sentiment
@@ -100,7 +116,7 @@ class _SentimentReasonState extends State<SentimentReason> {
             children: [
               const SizedBox(width: 10),
               Text(
-                why,
+                _why,
                 style: GoogleFonts.lato(fontSize: 16),
               ),
             ],
@@ -118,7 +134,7 @@ class _SentimentReasonState extends State<SentimentReason> {
                   ElevatedButton.icon(
                     onPressed: () {
                       setState(() {
-                        indexR = (value.index + 1);
+                        _indexR = (value.index + 1);
                       });
                     },
                     label: Text(
@@ -130,7 +146,7 @@ class _SentimentReasonState extends State<SentimentReason> {
                       backgroundColor: WidgetStatePropertyAll(
                           Theme.of(context).colorScheme.onPrimary),
                       iconColor: const WidgetStatePropertyAll(Colors.black),
-                      shape: indexR == value.index + 1
+                      shape: _indexR == value.index + 1
                           ? WidgetStatePropertyAll(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
@@ -154,13 +170,15 @@ class _SentimentReasonState extends State<SentimentReason> {
           // commento
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: const TextField(
-              decoration: InputDecoration(
+            child: TextField(
+              decoration: const InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 60, horizontal: 5),
                 border: OutlineInputBorder(),
                 hintText: 'Commento',
               ),
+              maxLines: null,
+              onChanged: (value) => _enteredComment = value,
             ),
           ),
           const SizedBox(height: 60),
@@ -169,15 +187,22 @@ class _SentimentReasonState extends State<SentimentReason> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                  width: 300,
-                  height: 50,
-                  child: FilledButton(
-                    onPressed: () {},
-                    child: const Text(
-                      'Invia',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  )),
+                width: 300,
+                height: 50,
+                child: FilledButton(
+                  onPressed: () {
+                    setState(() {
+                      _isPressedI = true;
+                      widget.setPressedI(_isPressedI);
+                      widget.setSentiment(_saveItem());
+                    });
+                  },
+                  child: const Text(
+                    'Invia',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+              ),
             ],
           )
         ],

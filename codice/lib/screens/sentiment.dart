@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:happy_at_work/models/sentiment.dart';
+import 'package:happy_at_work/widgets/review.dart';
 import 'package:happy_at_work/widgets/sentiment_choice.dart';
 import 'package:happy_at_work/widgets/sentiment_reason.dart';
 
@@ -13,13 +15,27 @@ class SentimentScreen extends StatefulWidget {
 
 class _SentimentScreenState extends State<SentimentScreen> {
   var _selectedpageIndex = 0;
-  var _isPressed = false;
-  var _whichPressed = 999;
+  var _isPressedC = false;
+  var _whichPressedC = 999;
+  var _isPressedI = false;
+  Sentiment _newSent = Sentiment(type: Type.entusiasta);
 
-  void setIsPressed(isPressed, whichPressed) {
+  void setIsPressedC(isPressed, whichPressed) {
     setState(() {
-      _isPressed = isPressed;
-      _whichPressed = whichPressed;
+      _isPressedC = isPressed;
+      _whichPressedC = whichPressed;
+    });
+  }
+
+  void setIsPressedI(isPressed) {
+    setState(() {
+      _isPressedI = isPressed;
+    });
+  }
+
+  void setSentiment(sent) {
+    setState(() {
+      _newSent = sent;
     });
   }
 
@@ -32,9 +48,11 @@ class _SentimentScreenState extends State<SentimentScreen> {
         backgroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       body: <Widget>[
-        !_isPressed
-            ? SentimentChoice(setIsPressed)
-            : SentimentReason(_whichPressed),
+        if (!_isPressedC) SentimentChoice(setIsPressedC),
+        if (!_isPressedI)
+          SentimentReason(_whichPressedC, setIsPressedI, setSentiment)
+        else
+          Review(_newSent),
         // profile screen
         const SizedBox.expand(
           child: Center(
