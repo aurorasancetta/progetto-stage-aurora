@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:happy_at_work/models/sentiment.dart';
+import 'package:happy_at_work/screens/choice.dart';
 
 class Review extends StatefulWidget {
   const Review(this.newSentiment, {super.key});
@@ -13,10 +14,27 @@ class Review extends StatefulWidget {
 }
 
 class _ReviewState extends State<Review> {
+  Sentiment? newSentiment;
+
+  void _modSent() async {
+    final data = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (ctx) =>
+          ChoiceScreen(newSentiment!.type.index + 1, newSentiment),
+    ));
+    var newSent = data['newSent'];
+    setState(() {
+      newSentiment = newSent;
+    });
+  }
+
+  @override
+  void initState() {
+    newSentiment = widget.newSentiment;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Sentiment _newSentiment = widget.newSentiment;
-
     return Column(
       children: [
         Row(
@@ -31,7 +49,7 @@ class _ReviewState extends State<Review> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset(typeImage[_newSentiment.type]!),
+                        Image.asset(typeImage[newSentiment!.type]!),
                       ],
                     ),
                     const SizedBox(width: 10),
@@ -42,17 +60,19 @@ class _ReviewState extends State<Review> {
                           children: [
                             const SizedBox(width: 200),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _modSent();
+                              },
                               icon: const Icon(Icons.edit_square),
                             ),
                           ],
                         ),
-                        Text('Sentiment: ${typeName[_newSentiment.type]!}'),
-                        Text('Motivo: ${reasonName[_newSentiment.reason]!}'),
-                        if (_newSentiment.comment != null)
+                        Text('Sentiment: ${typeName[newSentiment!.type]!}'),
+                        Text('Motivo: ${reasonName[newSentiment!.reason]!}'),
+                        if (newSentiment!.comment != null)
                           SizedBox(
                             width: 250,
-                            child: Text('Commento: ${_newSentiment.comment!}'),
+                            child: Text('Commento: ${newSentiment!.comment}'),
                           ),
                       ],
                     ),

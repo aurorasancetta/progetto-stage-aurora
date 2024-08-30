@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-final formatter = DateFormat.yMd().add_jm();
+final formatter = DateFormat.yMd();
 
 enum Type { entusiasta, soddisfatto, insoddisfatto, frustrato }
 
