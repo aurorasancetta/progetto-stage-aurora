@@ -1,5 +1,6 @@
 # Domain model
-![domain_model](https://github.com/user-attachments/assets/399f0e5b-f544-492d-998c-66c2626747cb)
+![domain_model](https://github.com/user-attachments/assets/82269864-8239-466d-a0fe-bc7b06999540)
+
 ---
 ```
 @startuml
@@ -7,11 +8,11 @@
 object user {
     name
     surname
-    id
+    email
     team
     enum user_type
-    enum mood
-    enum sentiment
+    mood
+    sentiment
 }
 
 object user_type {
@@ -30,7 +31,6 @@ object sentiment {
 object mood {
     enum mood_type
     mood_date
-    mood_id
 }
 
 object feedback {
