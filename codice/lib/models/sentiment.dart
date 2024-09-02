@@ -3,22 +3,22 @@ import 'package:intl/intl.dart';
 
 final formatter = DateFormat.yMd();
 
-enum Type { entusiasta, soddisfatto, insoddisfatto, frustrato }
+enum SType { entusiasta, soddisfatto, insoddisfatto, frustrato }
 
 enum Reason { task, collega, fas, mioTeam, altroTeam, altro }
 
 final typeImage = {
-  Type.entusiasta: 'assets/emoji/ENTUSIASTA.png',
-  Type.soddisfatto: 'assets/emoji/SODDISFATTO.png',
-  Type.insoddisfatto: 'assets/emoji/INSODDISFATTO.png',
-  Type.frustrato: 'assets/emoji/FRUSTRATO.png',
+  SType.entusiasta: 'assets/emoji/ENTUSIASTA.png',
+  SType.soddisfatto: 'assets/emoji/SODDISFATTO.png',
+  SType.insoddisfatto: 'assets/emoji/INSODDISFATTO.png',
+  SType.frustrato: 'assets/emoji/FRUSTRATO.png',
 };
 
 const typeName = {
-  Type.entusiasta: 'Entusiasta',
-  Type.soddisfatto: 'Soddisfatto',
-  Type.insoddisfatto: 'Insoddisfatto',
-  Type.frustrato: 'Frustrato',
+  SType.entusiasta: 'Entusiasta',
+  SType.soddisfatto: 'Soddisfatto',
+  SType.insoddisfatto: 'Insoddisfatto',
+  SType.frustrato: 'Frustrato',
 };
 
 const reasonName = {
@@ -45,12 +45,15 @@ class Sentiment {
     this.reason,
     this.comment,
     this.date,
+    this.email,
   });
 
-  final Type type;
+  final SType type;
   final Reason? reason;
   final String? comment;
   final DateTime? date;
+  // temporary finche non ho accesso a microsoft, quando implemento bene leva ?
+  final String? email;
 
   String get formattedDate {
     return formatter.format(date!);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:happy_at_work/models/sentiment.dart';
 
 class ChoiceScreen extends StatefulWidget {
@@ -23,7 +24,7 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
 
   Sentiment _saveItem() {
     newSent = Sentiment(
-      type: Type.values[_indexC - 1],
+      type: SType.values[_indexC - 1],
       reason: Reason.values[_indexR - 1],
       comment: _enteredComment,
       date: _date,
@@ -48,16 +49,16 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
   @override
   Widget build(BuildContext context) {
     if (_indexC == 1) {
-      _sentC = typeName[Type.entusiasta]!;
+      _sentC = typeName[SType.entusiasta]!;
       _why = 'Cosa ha influito positivamente?';
     } else if (_indexC == 2) {
-      _sentC = typeName[Type.soddisfatto]!;
+      _sentC = typeName[SType.soddisfatto]!;
       _why = 'Cosa ha influito positivamente?';
     } else if (_indexC == 3) {
-      _sentC = typeName[Type.insoddisfatto]!;
+      _sentC = typeName[SType.insoddisfatto]!;
       _why = 'Cosa ha influito negativamente?';
     } else if (_indexC == 4) {
-      _sentC = typeName[Type.frustrato]!;
+      _sentC = typeName[SType.frustrato]!;
       _why = 'Cosa ha influito negativmente?';
     }
 
@@ -68,17 +69,19 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
+            Text(
               'Come va oggi?',
-              style: TextStyle(
+              style: GoogleFonts.ptSerif(
                 fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 48),
             // opzioni di sentiment
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                for (var value in Type.values)
+                for (var value in SType.values)
                   IconButton(
                     onPressed: () {
                       setState(() {
@@ -87,8 +90,8 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
                     },
                     icon: _indexC == value.index + 1
                         ? Container(
-                            height: 70,
-                            width: 70,
+                            height: 72,
+                            width: 72,
                             decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.primary,
                               shape: BoxShape.circle,
@@ -100,43 +103,45 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
                             child: Image.asset(typeImage[value]!),
                           )
                         : SizedBox(
-                            height: 70,
-                            width: 70,
+                            height: 72,
+                            width: 72,
                             child: Image.asset(typeImage[value]!)),
                   ),
               ],
             ),
             Container(
               alignment: Alignment.center,
-              height: 30,
-              width: 110,
+              height: 33,
+              width: 112,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
                       color: Theme.of(context).colorScheme.secondaryContainer),
                   color: Theme.of(context).colorScheme.onPrimary),
-              child: Text(_sentC),
+              child: Text(
+                _sentC,
+                style: GoogleFonts.lato(fontSize: 16),
+              ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 48),
             // motivazioni sentiment
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(width: 10),
+                const SizedBox(width: 12),
                 Text(
                   _why,
-                  style: const TextStyle(fontSize: 16),
+                  style: GoogleFonts.lato(fontSize: 18),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 24),
             Container(
-              height: 60,
+              height: 56,
               decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.secondaryContainer),
               child: ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 scrollDirection: Axis.horizontal,
                 children: [
                   for (var value in Reason.values)
@@ -148,7 +153,8 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
                       },
                       label: Text(
                         reasonName[value]!,
-                        style: const TextStyle(color: Colors.black),
+                        style:
+                            GoogleFonts.lato(fontSize: 16, color: Colors.black),
                       ),
                       icon: Icon(reasonIcons[value]!),
                       style: ButtonStyle(
@@ -176,30 +182,31 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 48),
             // commento
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: TextField(
                 controller: TextEditingController(text: _enteredComment),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   contentPadding:
-                      EdgeInsets.symmetric(vertical: 60, horizontal: 5),
-                  border: OutlineInputBorder(),
+                      const EdgeInsets.symmetric(vertical: 64, horizontal: 8),
+                  border: const OutlineInputBorder(),
                   hintText: 'Commento',
+                  hintStyle: GoogleFonts.lato(fontSize: 14),
                 ),
                 maxLines: null,
                 onChanged: (value) => _enteredComment = value,
               ),
             ),
-            const SizedBox(height: 60),
+            const SizedBox(height: 80),
             // invia
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 300,
-                  height: 50,
+                  width: 304,
+                  height: 48,
                   child: FilledButton(
                     onPressed: () {
                       setState(() {
@@ -212,9 +219,9 @@ class _ChoiceScreenState extends State<ChoiceScreen> {
                       };
                       Navigator.of(context).pop(data);
                     },
-                    child: const Text(
+                    child: Text(
                       'Invia',
-                      style: TextStyle(fontSize: 18),
+                      style: GoogleFonts.lato(fontSize: 18),
                     ),
                   ),
                 ),
