@@ -49,8 +49,9 @@ final moodName = {
 };
 
 class Mood {
-  const Mood({this.type, this.date});
+  const Mood({
+    this.type,
+  });
 
   final MType? type;
-  final DateTime? date;
 }

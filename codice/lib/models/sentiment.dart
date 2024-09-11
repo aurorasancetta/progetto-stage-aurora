@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-final formatter = DateFormat.yMd();
 
 enum SType { entusiasta, soddisfatto, insoddisfatto, frustrato }
 
@@ -44,18 +41,12 @@ class Sentiment {
     required this.type,
     this.reason,
     this.comment,
-    this.date,
     this.email,
   });
 
   final SType type;
   final Reason? reason;
   final String? comment;
-  final DateTime? date;
   // temporary finche non ho accesso a microsoft, quando implemento bene leva ?
   final String? email;
-
-  String get formattedDate {
-    return formatter.format(date!);
-  }
 }

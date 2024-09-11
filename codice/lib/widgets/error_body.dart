@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ErrorBody extends StatelessWidget {
   const ErrorBody({
@@ -12,7 +13,15 @@ class ErrorBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(message),
+        child: Column(
+          children: [
+            Text(
+              'ERRORE!!',
+              style: GoogleFonts.lato(),
+            ),
+            Text(message),
+          ],
+        ),
       ),
     );
   }

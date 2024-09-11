@@ -26,6 +26,10 @@ class _SentimentScreenState extends State<SentimentScreen> {
   String? errorMessage;
   Mood? mood;
 
+  void _updateSentResultMood(SendResult result) {
+    _updateSentResult(result);
+  }
+
   void _updateSentResult(SendResult result) {
     if (result.status == Status.ko) {
       setState(() {
@@ -93,7 +97,8 @@ class _SentimentScreenState extends State<SentimentScreen> {
         body = SingleChildScrollView(
           child: ViewSentimentInsertMoodBody(
             sentiment: sentiment!,
-            onModResult: _updateSentResult,
+            onModResultSentiment: _updateSentResult,
+            onModResultMood: _updateSentResultMood,
             mood: mood,
           ),
         );

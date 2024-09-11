@@ -19,7 +19,6 @@ class _SecondChoiceScreenState extends State<SecondChoiceScreen> {
   var _sentC = ' ';
   var _why = ' ';
   var _enteredComment = '';
-  final _date = DateTime.now();
   Sentiment? newSent;
 
   void _saveItem() {
@@ -27,7 +26,6 @@ class _SecondChoiceScreenState extends State<SecondChoiceScreen> {
       type: SType.values[_indexC - 1],
       reason: Reason.values[_indexR - 1],
       comment: _enteredComment,
-      date: _date,
     );
   }
 

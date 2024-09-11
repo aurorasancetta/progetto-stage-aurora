@@ -9,19 +9,21 @@ class ViewSentimentInsertMoodBody extends StatelessWidget {
   const ViewSentimentInsertMoodBody({
     super.key,
     required this.sentiment,
-    required this.onModResult,
+    required this.onModResultSentiment,
+    required this.onModResultMood,
     this.mood,
   });
 
   final Sentiment sentiment;
-  final void Function(SendResult) onModResult;
+  final void Function(SendResult) onModResultSentiment;
+  final void Function(SendResult) onModResultMood;
   final Mood? mood;
 
   void _modSentiment(BuildContext ctx) async {
     final data = await Navigator.of(ctx).push(MaterialPageRoute(
       builder: (ctx) => SecondChoiceScreen(sentiment.type.index + 1, sentiment),
     ));
-    onModResult(data);
+    onModResultSentiment(data);
   }
 
   @override
@@ -183,6 +185,9 @@ class ViewSentimentInsertMoodBody extends StatelessWidget {
                 : Icon(moodIcon[mood!.type]),
             onSelected: (MType? newMoodType) async {
               // manda mood ad api
+              final data =
+                  await sendMoodToday('federico.moretto@cgn.it', newMoodType!);
+              onModResultMood(data);
             },
             dropdownMenuEntries: MType.values
                 .map(

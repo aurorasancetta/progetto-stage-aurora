@@ -3,7 +3,7 @@ import 'package:happy_at_work/screens/login.dart';
 import 'package:happy_at_work/screens/sentiment.dart';
 
 void main() {
-  bool isLoggedIn = false;
+  bool isLoggedIn = true;
 
   runApp(
     MaterialApp(
