@@ -14,14 +14,14 @@ final typeImage = {
   SType.frustrato: 'assets/emoji/FRUSTRATO.png',
 };
 
-const typeName = {
+final typeName = {
   SType.entusiasta: 'Entusiasta',
   SType.soddisfatto: 'Soddisfatto',
   SType.insoddisfatto: 'Insoddisfatto',
   SType.frustrato: 'Frustrato',
 };
 
-const reasonName = {
+final reasonName = {
   Reason.task: 'Task',
   Reason.collega: 'Collega',
   Reason.fas: 'FAS',
@@ -30,7 +30,7 @@ const reasonName = {
   Reason.altro: 'Altro',
 };
 
-const reasonIcons = {
+final reasonIcons = {
   Reason.task: Icons.task,
   Reason.collega: Icons.people,
   Reason.fas: Icons.supervisor_account_outlined,
