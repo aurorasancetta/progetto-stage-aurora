@@ -1,0 +1,19 @@
+meta {
+  name: GetFaccina
+  type: http
+  seq: 2
+}
+
+post {
+  url: https://happyatwork.cgn.it/API/GetFaccina.php
+  body: formUrlEncoded
+  auth: none
+}
+
+headers {
+  Content-Type: application/x-www-form-urlencoded
+}
+
+body:form-urlencoded {
+  EmailUtente: federico.moretto@cgn.it
+}
