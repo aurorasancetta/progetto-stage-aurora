@@ -8,7 +8,7 @@ class User {
     required this.name,
     required this.surname,
     required this.email,
-    required this.team,
+    this.team,
     this.mood,
     this.sentiment,
   });
@@ -16,7 +16,7 @@ class User {
   final String name;
   final String surname;
   final String email;
-  final String team;
+  final String? team;
   // final UType userType;
   final Mood? mood;
   final Sentiment? sentiment;
