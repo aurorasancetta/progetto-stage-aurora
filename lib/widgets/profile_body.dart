@@ -26,7 +26,11 @@ class ProfileBody extends StatelessWidget {
                   children: [
                     Text(
                       'Nome Cognome',
-                      style: GoogleFonts.lato(fontSize: 18),
+                      style: GoogleFonts.lato(
+                        fontSize: 18,
+                        color:
+                            Theme.of(context).colorScheme.onSecondaryContainer,
+                      ),
                     ),
                     Text(
                       'Nome team',
@@ -49,57 +53,38 @@ class ProfileBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              style: ButtonStyle(
-                shape: const WidgetStatePropertyAll(
-                  RoundedRectangleBorder(),
-                ),
-                backgroundColor: WidgetStatePropertyAll(
-                    Theme.of(context).colorScheme.surfaceContainer),
-              ),
-              label: Text(
+          Card(
+            color: Theme.of(context).colorScheme.surfaceContainer,
+            child: ListTile(
+              title: Text(
                 'A cosa serve Happy@Work',
                 style: GoogleFonts.lato(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
               ),
-              icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.black,
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
-              iconAlignment: IconAlignment.end,
+              onTap: () {},
             ),
           ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              style: ButtonStyle(
-                shape: const WidgetStatePropertyAll(
-                  RoundedRectangleBorder(),
-                ),
-                backgroundColor: WidgetStatePropertyAll(
-                    Theme.of(context).colorScheme.surfaceContainer),
-              ),
-              label: Text(
+          Card(
+            color: Theme.of(context).colorScheme.surfaceContainer,
+            child: ListTile(
+              title: Text(
                 'Chi vede i tuoi dati',
                 style: GoogleFonts.lato(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
               ),
-              icon: const Icon(
-                Icons.arrow_forward,
-                color: Colors.black,
+              trailing: Icon(
+                Icons.arrow_forward_ios,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
-              iconAlignment: IconAlignment.end,
+              onTap: () {},
             ),
           ),
           const SizedBox(height: 16),
@@ -111,30 +96,21 @@ class ProfileBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            height: 48,
-            child: ElevatedButton.icon(
-              onPressed: () {},
-              style: ButtonStyle(
-                shape: const WidgetStatePropertyAll(
-                  RoundedRectangleBorder(),
-                ),
-                backgroundColor: WidgetStatePropertyAll(
-                    Theme.of(context).colorScheme.surfaceContainer),
-              ),
-              label: Text(
+          Card(
+            color: Theme.of(context).colorScheme.surfaceContainer,
+            child: ListTile(
+              title: Text(
                 'Esci',
                 style: GoogleFonts.lato(
                   fontSize: 18,
-                  color: Colors.black,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
                 ),
               ),
-              icon: const Icon(
+              trailing: Icon(
                 Icons.exit_to_app,
-                color: Colors.black,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
-              iconAlignment: IconAlignment.end,
+              onTap: () {},
             ),
           ),
         ],
