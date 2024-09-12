@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:happy_at_work/api/microsoft_auth.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({super.key});
@@ -110,7 +111,7 @@ class ProfileBody extends StatelessWidget {
                 Icons.exit_to_app,
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
-              onTap: () {},
+              onTap: logout,
             ),
           ),
         ],
