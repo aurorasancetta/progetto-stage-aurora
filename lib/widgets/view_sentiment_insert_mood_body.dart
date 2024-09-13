@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happy_at_work/api/send_sentiment_mood.dart';
 import 'package:happy_at_work/models/mood.dart';
 import 'package:happy_at_work/models/sentiment.dart';
+import 'package:happy_at_work/providers/user_provider.dart';
 import 'package:happy_at_work/screens/second_choice.dart';
 
-class ViewSentimentInsertMoodBody extends StatelessWidget {
+class ViewSentimentInsertMoodBody extends ConsumerWidget {
   const ViewSentimentInsertMoodBody({
     super.key,
     required this.sentiment,
@@ -27,7 +29,8 @@ class ViewSentimentInsertMoodBody extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(userProvider);
     return Container(
       padding: const EdgeInsets.all(8),
       child: Column(
@@ -185,8 +188,7 @@ class ViewSentimentInsertMoodBody extends StatelessWidget {
                 : Icon(moodIcon[mood!.type]),
             onSelected: (MType? newMoodType) async {
               // manda mood ad api
-              final data =
-                  await sendMoodToday('federico.moretto@cgn.it', newMoodType!);
+              final data = await sendMoodToday(user, newMoodType!);
               onModResultMood(data);
             },
             dropdownMenuEntries: MType.values

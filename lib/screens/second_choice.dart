@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:happy_at_work/api/send_sentiment_mood.dart';
 import 'package:happy_at_work/models/sentiment.dart';
+import 'package:happy_at_work/providers/user_provider.dart';
 
-class SecondChoiceScreen extends StatefulWidget {
+class SecondChoiceScreen extends ConsumerStatefulWidget {
   const SecondChoiceScreen(this.pressedC, this.sentiment, {super.key});
 
   final int pressedC;
   final Sentiment? sentiment;
 
   @override
-  State<SecondChoiceScreen> createState() => _SecondChoiceScreenState();
+  ConsumerState<SecondChoiceScreen> createState() => _SecondChoiceScreenState();
 }
 
-class _SecondChoiceScreenState extends State<SecondChoiceScreen> {
+class _SecondChoiceScreenState extends ConsumerState<SecondChoiceScreen> {
   var _indexC = 999;
   var _indexR = 999;
   var _sentC = ' ';
@@ -45,6 +47,8 @@ class _SecondChoiceScreenState extends State<SecondChoiceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(userProvider);
+
     if (_indexC == 1) {
       _sentC = typeName[SType.entusiasta]!;
       _why = 'Cosa ha influito positivamente?';
@@ -244,8 +248,7 @@ class _SecondChoiceScreenState extends State<SecondChoiceScreen> {
                       setState(() {
                         _saveItem();
                       });
-                      final data = await sendSentimentToday(
-                          'federico.moretto@cgn.it', newSent!);
+                      final data = await sendSentimentToday(user, newSent!);
                       Navigator.of(context).pop(data);
                     },
                     child: Text(

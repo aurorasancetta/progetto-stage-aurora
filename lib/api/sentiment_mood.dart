@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:happy_at_work/models/mood.dart';
 import 'package:happy_at_work/models/sentiment.dart';
+import 'package:happy_at_work/models/user.dart';
 import 'package:http/http.dart' as http;
 
 class SentimentMoodResult {
@@ -136,7 +137,7 @@ SentimentMoodResult? getSentimentMoodByResult(
   );
 }
 
-Future<SentimentMoodResult> getSentimentMoodToday(String email) async {
+Future<SentimentMoodResult> getSentimentMoodToday(User user) async {
   /* test errore 
   return Future.value(SentimentResult(errorMessage: 'Errore'));*/
 
@@ -159,7 +160,7 @@ Future<SentimentMoodResult> getSentimentMoodToday(String email) async {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: <String, Object>{
-      'EmailUtente': email,
+      'EmailUtente': user.email,
     },
   );
 

@@ -5,16 +5,14 @@ import 'package:happy_at_work/models/sentiment.dart';
 
 class User {
   const User({
-    required this.name,
-    required this.surname,
+    required this.nameSurname,
     required this.email,
     this.team,
     this.mood,
     this.sentiment,
   });
 
-  final String name;
-  final String surname;
+  final String nameSurname;
   final String email;
   final String? team;
   // final UType userType;

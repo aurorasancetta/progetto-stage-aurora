@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:happy_at_work/models/mood.dart';
 import 'package:happy_at_work/models/sentiment.dart';
+import 'package:happy_at_work/models/user.dart';
 import 'package:http/http.dart' as http;
 
 enum Status { ok, ko }
@@ -24,7 +25,7 @@ String getStatusMessage(Map<String, dynamic> resultObject) {
   return resultObject['messaggio'];
 }
 
-Future<SendResult> sendSentimentToday(String email, Sentiment sentiment) async {
+Future<SendResult> sendSentimentToday(User user, Sentiment sentiment) async {
   int typeInt;
   int? reasonInt;
 
@@ -73,7 +74,7 @@ Future<SendResult> sendSentimentToday(String email, Sentiment sentiment) async {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: <String, Object?>{
-      'EmailUtente': email,
+      'EmailUtente': user.email,
       'TipoFaccina': "$typeInt",
       'NoteFaccina': sentiment.comment,
       'MetricaSentiment': "$reasonInt",
@@ -97,7 +98,7 @@ Future<SendResult> sendSentimentToday(String email, Sentiment sentiment) async {
       status: Status.ko, message: 'Errore | qualcosa è andato storto');
 }
 
-Future<SendResult> sendMoodToday(String email, MType moodType) async {
+Future<SendResult> sendMoodToday(User user, MType moodType) async {
   int? typeInt;
 
   switch (moodType) {
@@ -136,7 +137,7 @@ Future<SendResult> sendMoodToday(String email, MType moodType) async {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: <String, Object?>{
-      'EmailUtente': email,
+      'EmailUtente': user.email,
       'Mood': "$typeInt",
     },
   );

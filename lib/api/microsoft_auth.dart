@@ -1,7 +1,22 @@
 import 'package:aad_oauth/model/config.dart';
 import 'package:flutter/material.dart';
 import 'package:aad_oauth/aad_oauth.dart';
+import 'package:happy_at_work/api/send_sentiment_mood.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+
+class AuthResult {
+  const AuthResult({
+    required this.status,
+    this.message,
+    this.email,
+    this.nameSurname,
+  });
+
+  final Status status;
+  final String? message;
+  final String? email;
+  final String? nameSurname;
+}
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -16,51 +31,41 @@ final Config config = Config(
 
 final AadOAuth oauth = AadOAuth(config);
 
-/*class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () => _login(),
-              child: const Text('log in'),
-            ),
-            /*ElevatedButton(
-                onPressed: () async {
-                  await oauth.logout();
-                  print('logged out');
-                },
-                child: const Text('log out'))*/
-          ],
-        ),
-      ),
-    );
-  }*/
-
-Future login() async {
+Future<AuthResult> login() async {
   var result = await oauth.login();
+  var authResult = const AuthResult(
+    status: Status.ko,
+    message: 'Something went wrong',
+  );
+
   result.fold(
-    (failure) => debugPrint(failure.toString()),
+    (failure) {
+      authResult = AuthResult(
+        status: Status.ko,
+        message: failure.toString(),
+      );
+    },
     (token) {
-      debugPrint("idToken: ${token.idToken}");
-      _decodeJwt(token.idToken!);
+      //debugPrint("idToken: ${token.idToken}");
+      authResult = _decodeJwt(token.idToken!);
     },
   );
+  return authResult;
 }
 
-Map<String, dynamic> _decodeJwt(String token) {
+AuthResult _decodeJwt(String token) {
   Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
-  final data = {
-    'email': decodedToken["preferred_username"],
-    'name_surname': decodedToken["name"],
-  };
+  var data = AuthResult(
+    status: Status.ok,
+    email: decodedToken["preferred_username"],
+    nameSurname: decodedToken["name"],
+  );
   return data;
   //debugPrint(decodedToken["preferred_username"]);
   //debugPrint(decodedToken["name"]);
+}
+
+void logout() async {
+  await oauth.logout();
 }

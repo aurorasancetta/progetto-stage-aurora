@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:happy_at_work/api/send_sentiment_mood.dart';
 import 'package:happy_at_work/api/sentiment_mood.dart';
 import 'package:happy_at_work/models/mood.dart';
 import 'package:happy_at_work/models/sentiment.dart';
+import 'package:happy_at_work/providers/user_provider.dart';
 import 'package:happy_at_work/screens/shared.dart';
 import 'package:happy_at_work/screens/main_scaffold.dart';
 import 'package:happy_at_work/screens/profile.dart';
@@ -11,16 +13,16 @@ import 'package:happy_at_work/widgets/first_choice_body.dart';
 import 'package:happy_at_work/widgets/view_sentiment_insert_mood_body.dart';
 import 'package:happy_at_work/widgets/loading_body.dart';
 
-class SentimentScreen extends StatefulWidget {
+class SentimentScreen extends ConsumerStatefulWidget {
   const SentimentScreen({
     super.key,
   });
 
   @override
-  State<SentimentScreen> createState() => _SentimentScreenState();
+  ConsumerState<SentimentScreen> createState() => _SentimentScreenState();
 }
 
-class _SentimentScreenState extends State<SentimentScreen> {
+class _SentimentScreenState extends ConsumerState<SentimentScreen> {
   SentimentState sentimentState = SentimentState.loading;
   Sentiment? sentiment;
   String? errorMessage;
@@ -50,9 +52,9 @@ class _SentimentScreenState extends State<SentimentScreen> {
   }
 
   void _getSentiment() async {
+    final user = ref.watch(userProvider);
     sentimentState = SentimentState.loading;
-    final sentimentResult =
-        await getSentimentMoodToday('federico.moretto@cgn.it');
+    final sentimentResult = await getSentimentMoodToday(user);
     if (sentimentResult.isError()) {
       setState(() {
         errorMessage = sentimentResult.errorMessage;
