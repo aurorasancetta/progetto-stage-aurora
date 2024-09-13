@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:happy_at_work/models/user.dart';
 
-/*class UserNotifier extends StateNotifier<User> {
+class UserNotifier extends StateNotifier<User> {
   UserNotifier()
       : super(const User(
           email: 'federico.moretto@cgn.it',
@@ -15,7 +15,7 @@ import 'package:happy_at_work/models/user.dart';
 
 final userProvider = StateNotifierProvider<UserNotifier, User>((ref) {
   return UserNotifier();
-});*/
+});
 
-final userProvider = Provider((ref) => const User(
-    email: 'federico.moretto@cgn.it', nameSurname: 'Federico Moretto'));
+/*final userProvider = Provider((ref) => const User(
+    email: 'federico.moretto@cgn.it', nameSurname: 'Federico Moretto'));*/

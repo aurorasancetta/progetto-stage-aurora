@@ -14,12 +14,23 @@ class ErrorBody extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'ERRORE!!',
-              style: GoogleFonts.lato(),
+              style: GoogleFonts.lato(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
             ),
-            Text(message),
+            Text(
+              message,
+              style: GoogleFonts.lato(
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
           ],
         ),
       ),

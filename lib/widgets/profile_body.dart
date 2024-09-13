@@ -14,10 +14,10 @@ class ProfileBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
     // inserire url sondaggio
-    final Uri _url = Uri.parse('');
-    Future<void> _launchUrl() async {
-      if (!await launchUrl(_url)) {
-        throw Exception('Errore | non sono riuscito ad aprire il sito $_url');
+    final Uri url = Uri.parse('');
+    Future<void> openUrl() async {
+      if (!await launchUrl(url)) {
+        throw Exception('Errore | non sono riuscito ad aprire il sito $url');
       }
     }
 
@@ -119,7 +119,7 @@ class ProfileBody extends ConsumerWidget {
                 Icons.send,
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
-              onTap: _launchUrl,
+              onTap: openUrl,
             ),
           ),
           Card(

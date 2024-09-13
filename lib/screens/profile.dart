@@ -15,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
   void _navigateTo(MainScreenScaffoldNavigationType type, BuildContext ctx) {
     if (type == MainScreenScaffoldNavigationType.sentiment) {
       Navigator.of(ctx).push(MaterialPageRoute(
-        builder: (ctx) => SentimentScreen(),
+        builder: (ctx) => const SentimentScreen(),
       ));
     }
   }
@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MainScreenScaffold(
-      body: ProfileBody(),
+      body: const ProfileBody(),
       navigationType: MainScreenScaffoldNavigationType.profile,
       onNavigationTypeSelected: (MainScreenScaffoldNavigationType type) {
         _navigateTo(type, context);

@@ -19,14 +19,28 @@ class RetryScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
+              'ERRORE!',
+              style: GoogleFonts.lato(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
+            Text(
               errorMessage,
-              style: GoogleFonts.lato(),
+              style: GoogleFonts.lato(
+                fontSize: 18,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
             ),
             ElevatedButton(
               onPressed: onRetry,
               child: Text(
                 'Riprova',
-                style: GoogleFonts.lato(),
+                style: GoogleFonts.lato(
+                  fontSize: 16,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
               ),
             )
           ],

@@ -27,9 +27,9 @@ class _AppState extends ConsumerState<App> {
     _isLoggedIn = AuthState.loading;
     var result = await login();
     if (result.status == Status.ok) {
-      /*ref
+      ref
           .read(userProvider.notifier)
-          .updateUser(result.email!, result.nameSurname!);*/
+          .updateUser(result.email!, result.nameSurname!);
       setState(() {
         _isLoggedIn = AuthState.loggedIn;
       });

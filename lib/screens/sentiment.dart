@@ -79,10 +79,16 @@ class _SentimentScreenState extends ConsumerState<SentimentScreen> {
     }
   }
 
-  @override
+  /*@override
   void initState() {
     super.initState();
     _getSentiment();
+  }*/
+
+  @override
+  void didChangeDependencies() {
+    _getSentiment();
+    super.didChangeDependencies();
   }
 
   @override
