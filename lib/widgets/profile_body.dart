@@ -14,7 +14,7 @@ class ProfileBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
     // inserire url sondaggio
-    final Uri url = Uri.parse('');
+    final Uri url = Uri.parse('https://forms.office.com/e/DN2vUBncPj');
     Future<void> openUrl() async {
       if (!await launchUrl(url)) {
         throw Exception('Errore | non sono riuscito ad aprire il sito $url');

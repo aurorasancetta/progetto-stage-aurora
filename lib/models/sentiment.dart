@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 
 enum SType { entusiasta, soddisfatto, insoddisfatto, frustrato }
 
-enum Reason { task, collega, fas, mioTeam, altroTeam, altro }
+enum Reason {
+  task,
+  obiettivi,
+  relazioni,
+  riconoscimento,
+  responsabilita,
+  altro
+}
 
 final typeImage = {
   SType.entusiasta: 'assets/emoji/ENTUSIASTA.png',
@@ -20,19 +27,19 @@ final typeName = {
 
 final reasonName = {
   Reason.task: 'Task',
-  Reason.collega: 'Collega',
-  Reason.fas: 'FAS',
-  Reason.mioTeam: 'Il mio team',
-  Reason.altroTeam: 'Altro team',
+  Reason.obiettivi: 'Obiettivi',
+  Reason.relazioni: 'Relazioni',
+  Reason.riconoscimento: 'Riconoscimento',
+  Reason.responsabilita: 'Responsabilità',
   Reason.altro: 'Altro',
 };
 
 final reasonIcons = {
   Reason.task: Icons.task,
-  Reason.collega: Icons.people,
-  Reason.fas: Icons.supervisor_account_outlined,
-  Reason.mioTeam: Icons.groups,
-  Reason.altroTeam: Icons.groups_3,
+  Reason.obiettivi: Icons.track_changes,
+  Reason.relazioni: Icons.groups,
+  Reason.riconoscimento: Icons.supervisor_account_outlined,
+  Reason.responsabilita: Icons.checklist,
   Reason.altro: Icons.more_horiz,
 };
 

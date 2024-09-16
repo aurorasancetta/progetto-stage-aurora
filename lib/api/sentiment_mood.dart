@@ -81,16 +81,16 @@ SentimentMoodResult? getSentimentMoodByResult(
       reason = Reason.task;
       break;
     case '2':
-      reason = Reason.collega;
+      reason = Reason.obiettivi;
       break;
     case '3':
-      reason = Reason.fas;
+      reason = Reason.relazioni;
       break;
     case '4':
-      reason = Reason.mioTeam;
+      reason = Reason.riconoscimento;
       break;
     case '5':
-      reason = Reason.altroTeam;
+      reason = Reason.responsabilita;
       break;
     case '6':
       reason = Reason.altro;

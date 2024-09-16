@@ -60,6 +60,7 @@ class _AppState extends ConsumerState<App> {
                   onRetry: _getResult,
                 )
               : const SentimentScreen(),
+      navigatorKey: navigatorKey,
     );
   }
 }

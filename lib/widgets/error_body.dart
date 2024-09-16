@@ -12,7 +12,6 @@ class ErrorBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

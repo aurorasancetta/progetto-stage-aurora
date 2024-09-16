@@ -17,7 +17,7 @@ class MainScreenScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Theme.of(context).colorScheme.onPrimary,

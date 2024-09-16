@@ -51,16 +51,16 @@ Future<SendResult> sendSentimentToday(User user, Sentiment sentiment) async {
     case Reason.task:
       reasonInt = 1;
       break;
-    case Reason.collega:
+    case Reason.obiettivi:
       reasonInt = 2;
       break;
-    case Reason.fas:
+    case Reason.relazioni:
       reasonInt = 3;
       break;
-    case Reason.mioTeam:
+    case Reason.riconoscimento:
       reasonInt = 4;
       break;
-    case Reason.altroTeam:
+    case Reason.responsabilita:
       reasonInt = 5;
       break;
     case Reason.altro:
