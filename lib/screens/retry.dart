@@ -20,7 +20,7 @@ class RetryScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'ERRORE!',
+              'ERRORE',
               style: GoogleFonts.lato(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

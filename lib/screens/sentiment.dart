@@ -52,9 +52,9 @@ class _SentimentScreenState extends ConsumerState<SentimentScreen> {
   }
 
   void _getSentiment() async {
-    final user = ref.watch(userProvider);
+    final userLog = ref.watch(userProvider);
     sentimentState = SentimentState.loading;
-    final sentimentResult = await getSentimentMoodToday(user);
+    final sentimentResult = await getSentimentMoodToday(userLog.getUser());
     if (sentimentResult.isError()) {
       setState(() {
         errorMessage = sentimentResult.errorMessage;

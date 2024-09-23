@@ -30,7 +30,7 @@ class ViewSentimentInsertMoodBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
+    final userLog = ref.watch(userProvider);
     return Container(
       padding: const EdgeInsets.all(8),
       child: Column(
@@ -162,11 +162,13 @@ class ViewSentimentInsertMoodBody extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(width: 8),
-              Text(
-                'Puoi condividere come ti senti oggi, al di la del lavoro',
-                style: GoogleFonts.lato(
-                  fontSize: 14,
-                  color: Theme.of(context).colorScheme.outline,
+              Expanded(
+                child: Text(
+                  'Puoi condividere come ti senti oggi, al di la del lavoro',
+                  style: GoogleFonts.lato(
+                    fontSize: 14,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                 ),
               ),
             ],
@@ -188,7 +190,7 @@ class ViewSentimentInsertMoodBody extends ConsumerWidget {
                 : Icon(moodIcon[mood!.type]),
             onSelected: (MType? newMoodType) async {
               // manda mood ad api
-              final data = await sendMoodToday(user, newMoodType!);
+              final data = await sendMoodToday(userLog.getUser(), newMoodType!);
               onModResultMood(data);
             },
             dropdownMenuEntries: MType.values

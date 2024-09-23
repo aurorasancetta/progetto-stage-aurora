@@ -47,7 +47,7 @@ class _SecondChoiceScreenState extends ConsumerState<SecondChoiceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(userProvider);
+    final userLog = ref.watch(userProvider);
 
     if (_indexC == 1) {
       _sentC = typeName[SType.entusiasta]!;
@@ -68,7 +68,7 @@ class _SecondChoiceScreenState extends ConsumerState<SecondChoiceScreen> {
       appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'Come va oggi?',
@@ -248,7 +248,19 @@ class _SecondChoiceScreenState extends ConsumerState<SecondChoiceScreen> {
                       setState(() {
                         _saveItem();
                       });
-                      final data = await sendSentimentToday(user, newSent!);
+                      final data =
+                          await sendSentimentToday(userLog.getUser(), newSent!);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.onPrimary,
+                          content: Text(
+                            'Sentiment modificato',
+                            style: GoogleFonts.lato(
+                                color: Theme.of(context).colorScheme.secondary),
+                          ),
+                        ),
+                      );
                       Navigator.of(context).pop(data);
                     },
                     child: Text(

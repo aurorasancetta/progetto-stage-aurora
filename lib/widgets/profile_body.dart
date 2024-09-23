@@ -12,7 +12,7 @@ class ProfileBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userProvider);
+    final userLog = ref.watch(userProvider);
     // inserire url sondaggio
     final Uri url = Uri.parse('https://forms.office.com/e/DN2vUBncPj');
     Future<void> openUrl() async {
@@ -38,7 +38,7 @@ class ProfileBody extends ConsumerWidget {
                 ),
                 const SizedBox(width: 16),
                 Text(
-                  user.nameSurname,
+                  userLog.getUser().nameSurname,
                   style: GoogleFonts.lato(
                     fontSize: 18,
                     color: Theme.of(context).colorScheme.onSecondaryContainer,
