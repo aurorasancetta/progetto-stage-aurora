@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:happy_at_work/api/microsoft_auth.dart';
-import 'package:happy_at_work/api/send_sentiment_mood.dart';
 import 'package:happy_at_work/api/sentiment_mood.dart';
 import 'package:happy_at_work/notifications.dart';
 import 'package:happy_at_work/providers/user_provider.dart';
 import 'package:happy_at_work/scheduling.dart';
 import 'package:happy_at_work/screens/retry.dart';
 import 'package:happy_at_work/screens/sentiment.dart';
-import 'package:happy_at_work/screens/shared.dart';
 import 'package:happy_at_work/widgets/loading_body.dart';
 
 class SentimentChecker {
