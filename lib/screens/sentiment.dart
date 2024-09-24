@@ -4,7 +4,7 @@ import 'package:happy_at_work/api/send_sentiment_mood.dart';
 import 'package:happy_at_work/api/sentiment_mood.dart';
 import 'package:happy_at_work/models/mood.dart';
 import 'package:happy_at_work/models/sentiment.dart';
-import 'package:happy_at_work/providers/user_provider.dart';
+import 'package:happy_at_work/providers/user_log_provider.dart';
 import 'package:happy_at_work/screens/shared.dart';
 import 'package:happy_at_work/screens/main_scaffold.dart';
 import 'package:happy_at_work/screens/profile.dart';
@@ -46,7 +46,7 @@ class _SentimentScreenState extends ConsumerState<SentimentScreen> {
   void _navigateTo(MainScreenScaffoldNavigationType type, BuildContext ctx) {
     if (type == MainScreenScaffoldNavigationType.profile) {
       Navigator.of(ctx).push(MaterialPageRoute(
-        builder: (ctx) => ProfileScreen(sentimentState: sentimentState),
+        builder: (ctx) => const ProfileScreen(),
       ));
     }
   }

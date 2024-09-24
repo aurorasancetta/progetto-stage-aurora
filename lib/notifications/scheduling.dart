@@ -1,6 +1,7 @@
 import 'package:schedulers/schedulers.dart';
 
 void startScheduler(void Function() callback) {
+  //Future.delayed(Duration(seconds: 5), callback);
   final scheduler = TimeScheduler();
 
   scheduler.run(() {

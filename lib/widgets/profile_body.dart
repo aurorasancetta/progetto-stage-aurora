@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:happy_at_work/api/microsoft_auth.dart';
-import 'package:happy_at_work/providers/user_provider.dart';
+import 'package:happy_at_work/providers/user_log_provider.dart';
 import 'package:happy_at_work/widgets/info/data_use.dart';
 import 'package:happy_at_work/widgets/info/utility.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProfileBody extends ConsumerWidget {
   const ProfileBody({super.key});
+
+  _logout(BuildContext ctx, WidgetRef ref) {
+    ref.read(userProvider.notifier).logout();
+    Navigator.of(ctx).popUntil((route) => route.isFirst);
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -136,7 +140,9 @@ class ProfileBody extends ConsumerWidget {
                 Icons.exit_to_app,
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
               ),
-              onTap: logout,
+              onTap: () {
+                _logout(context, ref);
+              },
             ),
           ),
         ],

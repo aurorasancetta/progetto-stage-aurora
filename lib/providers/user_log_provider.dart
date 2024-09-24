@@ -6,7 +6,7 @@ import 'package:happy_at_work/api/microsoft_auth.dart' as auth;
 
 class UserLog {
   User? _user;
-  AuthState _authState = AuthState.loading;
+  AuthState _authState = AuthState.none;
   String? _errorMessage;
 
   static UserLog loggedIn(User user) {
@@ -19,7 +19,8 @@ class UserLog {
   static UserLog loggedOut() {
     var log = UserLog();
     log._user = null;
-    log._authState = AuthState.loading;
+    log._errorMessage = null;
+    log._authState = AuthState.none;
     return log;
   }
 
@@ -27,6 +28,12 @@ class UserLog {
     var log = UserLog();
     log._authState = AuthState.error;
     log._errorMessage = errorMessage;
+    return log;
+  }
+
+  static UserLog loading() {
+    var log = UserLog();
+    log._authState = AuthState.loading;
     return log;
   }
 
@@ -59,12 +66,27 @@ class UserLog {
 
     throw ArgumentError('Errore | stato diverso da error');
   }
+
+  bool isLoggedIn() {
+    if (_authState == AuthState.loggedIn) {
+      return true;
+    }
+    return false;
+  }
+
+  bool isNone() {
+    if (_authState == AuthState.none) {
+      return true;
+    }
+    return false;
+  }
 }
 
 class UserNotifier extends StateNotifier<UserLog> {
   UserNotifier() : super(UserLog());
 
   void login() async {
+    state = UserLog.loading();
     var result = await auth.login();
     if (result.status == Status.ok) {
       state = UserLog.loggedIn(
@@ -74,8 +96,8 @@ class UserNotifier extends StateNotifier<UserLog> {
     }
   }
 
-  void logout() {
-    auth.logout();
+  void logout() async {
+    await auth.logout();
     state = UserLog.loggedOut();
   }
 }

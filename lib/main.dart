@@ -1,85 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:happy_at_work/api/microsoft_auth.dart';
 import 'package:happy_at_work/api/sentiment_mood.dart';
-import 'package:happy_at_work/notifications.dart';
-import 'package:happy_at_work/providers/user_provider.dart';
-import 'package:happy_at_work/scheduling.dart';
+import 'package:happy_at_work/notifications/notifications.dart';
+import 'package:happy_at_work/providers/user_log_provider.dart';
+import 'package:happy_at_work/notifications/scheduling.dart';
 import 'package:happy_at_work/screens/retry.dart';
 import 'package:happy_at_work/screens/sentiment.dart';
 import 'package:happy_at_work/widgets/loading_body.dart';
 
 class SentimentChecker {
-  bool Function()? check;
-
-  /*static SentimentChecker check(final bool Function() callback) {
-    var checker = SentimentChecker();
-    checker.callback = callback;
-    return checker;
-  }*/
+  Future<bool> Function()? checkerSentimentAdded;
 }
 
 void main() {
   var sentimentChecker = SentimentChecker();
+  var notifId = 0;
 
   runApp(ProviderScope(
       child: App(
-    checker: sentimentChecker,
+    sentimentChecker: sentimentChecker,
   )));
 
   // iniializza notificatore
-  var myNotificator = initializeNotification();
-  // inizializza scheduler
-  startScheduler(() {
-    if (!sentimentChecker.check!()) {
-      myNotificator.show(); // sistema qua!!!!!!
-    }
+  initializeNotification().then((myNotificator) {
+    startScheduler(() async {
+      if (sentimentChecker.checkerSentimentAdded != null) {
+        var sentimentAdded = await sentimentChecker.checkerSentimentAdded!();
+        if (!sentimentAdded) {
+          AndroidNotificationDetails androidNotificationDetails =
+              const AndroidNotificationDetails(
+            'ID',
+            'channel',
+            importance: Importance.max,
+            priority: Priority.high,
+          );
+          NotificationDetails notificationDetails =
+              NotificationDetails(android: androidNotificationDetails);
+          await myNotificator.show(
+            notifId,
+            'Inserisci il tuo sentiment giornaliero',
+            'Non hai ancora inserito il tuo sentiment giornaliero, è il momento di farlo!!',
+            notificationDetails,
+          );
+        }
+      }
+    });
   });
+  // inizializza scheduler
 }
 
 class App extends ConsumerStatefulWidget {
   const App({
     super.key,
-    required this.checker,
+    required this.sentimentChecker,
   });
 
-  final SentimentChecker checker;
+  final SentimentChecker sentimentChecker;
 
   @override
   ConsumerState<App> createState() => _AppState();
 }
 
 class _AppState extends ConsumerState<App> {
-  void _getResult() {
-    ref.read(userProvider.notifier).login();
-  }
-
-  @override
-  void initState() {
-    _getResult();
-    super.initState();
+  void _login() {
+    Future.delayed(const Duration(milliseconds: 100), () {
+      ref.read(userProvider.notifier).login();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var userLog = ref.watch(userProvider);
 
-    widget.checker.check = () async {
-      final sentimentResult = await getSentimentMoodToday(userLog.getUser());
-      return sentimentResult.isSentimentSelected();
-    } as bool Function()?;
+    if (userLog.isLoggedIn()) {
+      widget.sentimentChecker.checkerSentimentAdded = () async {
+        final sentimentResult = await getSentimentMoodToday(userLog.getUser());
+        return sentimentResult.isSentimentSelected();
+      };
+    }
+
+    if (userLog.isNone()) {
+      _login();
+    }
+
+    Widget homeWidget = const LoadingBody(); // caso loading e none
+    if (userLog.isError()) {
+      homeWidget = RetryScreen(
+        errorMessage: userLog.getErrorMessage(),
+        onRetry: _login,
+      );
+    }
+    if (userLog.isLoggedIn()) {
+      homeWidget = const SentimentScreen();
+    }
 
     return MaterialApp(
-      home: (userLog.isLogging())
-          ? const Scaffold(
-              body: LoadingBody(),
-            )
-          : (userLog.isError())
-              ? RetryScreen(
-                  errorMessage: userLog.getErrorMessage(),
-                  onRetry: _getResult,
-                )
-              : const SentimentScreen(),
+      home: homeWidget,
       navigatorKey: navigatorKey,
     );
   }

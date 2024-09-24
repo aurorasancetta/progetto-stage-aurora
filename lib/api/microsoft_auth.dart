@@ -31,41 +31,76 @@ final Config config = Config(
 
 final AadOAuth oauth = AadOAuth(config);
 
-Future<AuthResult> login() async {
-  var result = await oauth.login();
-  var authResult = const AuthResult(
-    status: Status.ko,
-    message: 'Something went wrong',
-  );
-
-  result.fold(
-    (failure) {
-      authResult = AuthResult(
-        status: Status.ko,
-        message: failure.toString(),
-      );
-    },
-    (token) {
-      //debugPrint("idToken: ${token.idToken}");
-      authResult = _decodeJwt(token.idToken!);
-    },
-  );
-  return authResult;
+abstract class AuthManager {
+  Future<AuthResult> login();
+  Future<void> logout();
 }
 
-AuthResult _decodeJwt(String token) {
-  Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+class MicrosoftAuthManager extends AuthManager {
+  @override
+  Future<AuthResult> login() async {
+    var result = await oauth.login();
+    var authResult = const AuthResult(
+      status: Status.ko,
+      message: 'Something went wrong',
+    );
 
-  var data = AuthResult(
-    status: Status.ok,
-    email: decodedToken["preferred_username"],
-    nameSurname: decodedToken["name"],
-  );
-  return data;
-  //debugPrint(decodedToken["preferred_username"]);
-  //debugPrint(decodedToken["name"]);
+    result.fold(
+      (failure) {
+        authResult = AuthResult(
+          status: Status.ko,
+          message: failure.toString(),
+        );
+      },
+      (token) {
+        //debugPrint("idToken: ${token.idToken}");
+        authResult = _decodeJwt(token.idToken!);
+      },
+    );
+    return authResult;
+  }
+
+  AuthResult _decodeJwt(String token) {
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+    var data = AuthResult(
+      status: Status.ok,
+      email: decodedToken["preferred_username"],
+      nameSurname: decodedToken["name"],
+    );
+    return data;
+    //debugPrint(decodedToken["preferred_username"]);
+    //debugPrint(decodedToken["name"]);
+  }
+
+  @override
+  Future<void> logout() async {
+    await oauth.logout();
+  }
 }
 
-void logout() async {
-  await oauth.logout();
+class TestAuthManager extends AuthManager {
+  @override
+  Future<AuthResult> login() {
+    return Future.value(const AuthResult(
+        status: Status.ok,
+        email: "federico.moretto@cgn.it",
+        nameSurname: "Federico"));
+  }
+
+  @override
+  Future<void> logout() {
+    return Future.value();
+  }
+}
+
+// AuthManager authManager = TestAuthManager();
+AuthManager authManager = MicrosoftAuthManager();
+
+Future<AuthResult> login() {
+  return authManager.login();
+}
+
+Future<void> logout() {
+  return authManager.logout();
 }

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:happy_at_work/api/send_sentiment_mood.dart';
 import 'package:happy_at_work/models/mood.dart';
 import 'package:happy_at_work/models/sentiment.dart';
-import 'package:happy_at_work/providers/user_provider.dart';
+import 'package:happy_at_work/providers/user_log_provider.dart';
 import 'package:happy_at_work/screens/second_choice.dart';
 
 class ViewSentimentInsertMoodBody extends ConsumerWidget {
