@@ -29,6 +29,7 @@ class ProfileBody extends ConsumerWidget {
       color: Theme.of(context).colorScheme.onPrimary,
       padding: const EdgeInsets.all(16),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
